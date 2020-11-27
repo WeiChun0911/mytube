@@ -1,6 +1,7 @@
 <template>
   <div class="videos">
     <div class="video" v-for="video in videos" :key="video.id">
+      <div class="videoDuration">{{durationParser(video.contentDetails.duration)}}</div>
       <img v-bind:src="video.snippet.thumbnails.default.url" alt="">
       <div>{{video.snippet.title}}</div>
     </div>
@@ -8,7 +9,8 @@
 </template>
 
 <script>
-export default {
+import durationParser from '../lib/durationParser.js';
+export default {  
   name: 'HelloWorld',
   props: {
     msg: String
@@ -18,8 +20,13 @@ export default {
       videos:null
     }
   },
+  methods: {
+    durationParser: function(duration){
+      return durationParser(duration);
+    }
+  },
   mounted:function(){
-    fetch('https://youtube.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE')
+    fetch('https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE')
     .then((response)=>{
       return response.json();
     })
@@ -52,5 +59,13 @@ export default {
 }
 .video div{
   width:200px;
+}
+.video .videoDuration{
+    position: relative;
+    top: 150px;
+    display: inline-block;
+    text-align: end;
+    padding-right: 5px;
+    color: white;
 }
 </style>
