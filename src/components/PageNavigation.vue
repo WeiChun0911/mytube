@@ -3,11 +3,11 @@
     <ul>
         <li v-on:click="currentPage = 1">1</li>
         <li v-on:click="previousPage(currentPage)" v-text="'<<'"></li>
-        <li v-on:click="setCurrentPage($event)">{{firstNumber}}</li>
-        <li v-on:click="setCurrentPage($event)">{{secondNumber}}</li>
-        <li v-on:click="setCurrentPage($event)">{{thirdNumber}}</li>
-        <li v-on:click="setCurrentPage($event)">{{forthNumber}}</li>
-        <li v-on:click="setCurrentPage($event)">{{fifthNumber}}</li>
+        <li v-bind:class="{isCurrentPage: isCurrentPage(firstNumber)}" v-on:click="setCurrentPage($event)">{{firstNumber}}</li>
+        <li v-bind:class="{isCurrentPage: isCurrentPage(secondNumber)}" v-on:click="setCurrentPage($event)">{{secondNumber}}</li>
+        <li v-bind:class="{isCurrentPage: isCurrentPage(thirdNumber)}" v-on:click="setCurrentPage($event)">{{thirdNumber}}</li>
+        <li v-bind:class="{isCurrentPage: isCurrentPage(forthNumber)}" v-on:click="setCurrentPage($event)">{{forthNumber}}</li>
+        <li v-bind:class="{isCurrentPage: isCurrentPage(fifthNumber)}" v-on:click="setCurrentPage($event)">{{fifthNumber}}</li>
         <li v-on:click="nextPage(currentPage)" v-text="'>>'"></li>
         <li v-on:click="currentPage = totalPage">{{totalPage}}</li>
     </ul>
@@ -75,6 +75,9 @@ export default {
       },
   },
   methods:{
+    isCurrentPage: function(number){
+        return this.currentPage == number;
+    },
     previousPage: function(currentPage){
         console.log(currentPage);
         if(currentPage <=1) return;
@@ -88,6 +91,7 @@ export default {
     setCurrentPage: function(event){
         console.log(event.target.innerText);
         this.currentPage = parseInt(event.target.innerText);
+
     }
   }
 }
@@ -107,5 +111,8 @@ li{
     margin:5px;
     border: 1px black solid;
 }
-
+.isCurrentPage{
+    background: black;
+    color: cornsilk;
+}
 </style>
