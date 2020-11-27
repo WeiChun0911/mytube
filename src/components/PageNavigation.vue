@@ -79,19 +79,15 @@ export default {
         return this.currentPage == number;
     },
     previousPage: function(currentPage){
-        console.log(currentPage);
         if(currentPage <=1) return;
         this.currentPage = currentPage - 1;
     },
     nextPage: function(currentPage){
-        console.log(currentPage);
-        if(currentPage >=200%12+1) return;
+        if(currentPage >= this.totalPage) return;
         this.currentPage = currentPage + 1;
     },
     setCurrentPage: function(event){
-        console.log(event.target.innerText);
         this.currentPage = parseInt(event.target.innerText);
-
     }
   }
 }
