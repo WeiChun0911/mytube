@@ -2,7 +2,7 @@
   <div class="videos">
     <div class="video" v-for="video in videos" :key="video.id">
       <img v-bind:src="video.snippet.thumbnails.default.url" alt="">
-      <span>{{video.snippet.title}}</span>
+      <div>{{video.snippet.title}}</div>
     </div>
   </div>
 </template>
@@ -37,10 +37,8 @@ export default {
   box-sizing: border-box;
 }
 .videos{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
 }
 .video{
   display: flex;
@@ -52,8 +50,7 @@ export default {
 .video img{
   width:200px;
 }
-.video span{
+.video div{
   width:200px;
-  align-self: flex-end;
 }
 </style>
