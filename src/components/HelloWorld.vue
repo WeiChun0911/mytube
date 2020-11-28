@@ -15,9 +15,21 @@ export default {
   props: {
     msg: String
   },
+  computed:{
+    videos: function () {
+      if(this.APIResponse[1]) return this.APIResponse[1].items;
+      return this.APIResponse[0].items
+    }
+  },
   data(){
-    return{
-      videos:null
+    return {
+      APIResponse:[
+        {
+          "nextPageToken": null,
+          "prevPageToken": null,
+          "items": null
+        }
+      ]
     }
   },
   methods: {
@@ -25,14 +37,18 @@ export default {
       return durationParser(duration);
     }
   },
-  mounted:function(){
+  mounted: function(){
     fetch('https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE')
     .then((response)=>{
       return response.json();
     })
-    .then((myJson)=>{
-      console.log(myJson);
-      this.videos = myJson.items;  
+    .then((json)=>{
+      let response = {
+        "nextPageToken": json.nextPageToken,
+        "prevPageToken": null,
+        "items": json.items
+      };
+      this.APIResponse.push(response);
     });
   }
 }
