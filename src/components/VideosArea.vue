@@ -16,9 +16,12 @@ export default {
     currentPage: Number
   },
   computed:{
+    lastPage: function(){
+      return this.APIResponse.length - 1;
+    },
     videos: function () {
       if(this.APIResponse[this.currentPage]) return this.APIResponse[this.currentPage].items;
-      return this.APIResponse[0].items;
+      return [];
     }
   },
   data(){
@@ -32,12 +35,33 @@ export default {
       ]
     }
   },
+  watch:{
+    currentPage: function(selectedPage){
+      //there's an default empty object when init.
+      if(this.lastPage >= selectedPage) return;
+      this.getNextPageVideos(this.APIResponse[this.lastPage].nextPageToken, selectedPage);
+    }
+  },
   methods: {
     durationParser: function(duration){
       return durationParser(duration);
     },
-    updateVideos: function(){
-
+    getNextPageVideos: function(token, page){
+      let url = 'https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE';
+      fetch(`${url}&pageToken=${token}`)
+      .then((response)=>{
+        return response.json();
+      })
+      .then((json)=>{
+        let response = {
+          "nextPageToken": json.nextPageToken,
+          "prevPageToken": json.prevPageToken,
+          "items": json.items
+        };
+        this.APIResponse.push(response);
+        if(this.lastPage == page) return;
+        this.getNextPageVideos(json.nextPageToken, page)
+      });
     },
     initFirstPageVideos: function(){
       fetch('https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE')
