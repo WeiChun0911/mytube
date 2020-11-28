@@ -12,13 +12,10 @@
 import durationParser from '../lib/durationParser.js';
 export default {  
   name: 'HelloWorld',
-  props: {
-    msg: String
-  },
   computed:{
     videos: function () {
       if(this.APIResponse[1]) return this.APIResponse[1].items;
-      return this.APIResponse[0].items
+      return this.APIResponse[0].items;
     }
   },
   data(){
@@ -56,7 +53,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-*{
+* {
   box-sizing: border-box;
 }
 .videos{

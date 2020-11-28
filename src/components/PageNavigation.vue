@@ -81,13 +81,16 @@ export default {
     previousPage: function(currentPage){
         if(currentPage <=1) return;
         this.currentPage = currentPage - 1;
+        this.$emit('pageChanged', this.currentPage);
     },
     nextPage: function(currentPage){
         if(currentPage >= this.totalPage) return;
         this.currentPage = currentPage + 1;
+        this.$emit('pageChanged', this.currentPage);
     },
     setCurrentPage: function(event){
         this.currentPage = parseInt(event.target.innerText);
+        this.$emit('pageChanged', this.currentPage);
     }
   }
 }
