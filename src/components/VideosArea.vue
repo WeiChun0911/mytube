@@ -11,7 +11,7 @@
 <script>
 import durationParser from '../lib/durationParser.js';
 export default {  
-  name: 'HelloWorld',
+  name: 'VideosArea',
   props:{
     currentPage: Number
   },

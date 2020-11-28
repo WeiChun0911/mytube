@@ -1,25 +1,25 @@
 <template>
   <div id="app" >
     <img alt="MyTube logo" src="./assets/logo.png">
-    <HelloWorld v-bind:currentPage="currentPage"/>
+    <VideosArea v-bind:currentPage="currentPage"/>
     <PageNavigation v-on:pageChanged="setCurrentPage"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import VideosArea from './components/VideosArea.vue';
 import PageNavigation from './components/PageNavigation.vue';
 
 export default {
   name: 'App',
+   components: {
+    VideosArea,
+    PageNavigation
+  },
   data: function(){
     return {
       currentPage: 1
     }
-  },
-  components: {
-    HelloWorld,
-    PageNavigation
   },
   methods:{
     setCurrentPage: function(page){
