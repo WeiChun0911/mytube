@@ -35,21 +35,27 @@ export default {
   methods: {
     durationParser: function(duration){
       return durationParser(duration);
+    },
+    updateVideos: function(){
+
+    },
+    initFirstPageVideos: function(){
+      fetch('https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE')
+      .then((response)=>{
+        return response.json();
+      })
+      .then((json)=>{
+        let response = {
+          "nextPageToken": json.nextPageToken,
+          "prevPageToken": null,
+          "items": json.items
+        };
+        this.APIResponse.push(response);
+      });
     }
   },
   mounted: function(){
-    fetch('https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Csnippet&chart=mostPopular&maxResults=12&key=AIzaSyAKtftWPNZ3SoK_5j1RJ3-nTDqBFGmWDSE')
-    .then((response)=>{
-      return response.json();
-    })
-    .then((json)=>{
-      let response = {
-        "nextPageToken": json.nextPageToken,
-        "prevPageToken": null,
-        "items": json.items
-      };
-      this.APIResponse.push(response);
-    });
+    this.initFirstPageVideos();
   }
 }
 </script>
