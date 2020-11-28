@@ -12,9 +12,12 @@
 import durationParser from '../lib/durationParser.js';
 export default {  
   name: 'HelloWorld',
+  props:{
+    currentPage: Number
+  },
   computed:{
     videos: function () {
-      if(this.APIResponse[1]) return this.APIResponse[1].items;
+      if(this.APIResponse[this.currentPage]) return this.APIResponse[this.currentPage].items;
       return this.APIResponse[0].items;
     }
   },

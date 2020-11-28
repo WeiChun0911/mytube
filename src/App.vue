@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld/>
-    <PageNavigation/>
+  <div id="app" >
+    <img alt="MyTube logo" src="./assets/logo.png">
+    <HelloWorld v-bind:currentPage="currentPage"/>
+    <PageNavigation v-on:pageChanged="setCurrentPage"/>
   </div>
 </template>
 
@@ -12,9 +12,19 @@ import PageNavigation from './components/PageNavigation.vue';
 
 export default {
   name: 'App',
+  data: function(){
+    return {
+      currentPage: 1
+    }
+  },
   components: {
     HelloWorld,
     PageNavigation
+  },
+  methods:{
+    setCurrentPage: function(page){
+      this.currentPage = page;
+    }
   }
 }
 </script>
