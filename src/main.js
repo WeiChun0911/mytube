@@ -5,7 +5,6 @@ import Favorite from './Favorite.vue'
 Vue.config.productionTip = false
 
 const app = new Vue({
-  el: '#app',
   data: {
     currentRoute: window.location.pathname
   },
@@ -18,7 +17,7 @@ const app = new Vue({
   render (h) {
     return h(this.ViewComponent)
   }
-})
+}).$mount('#app')
 
 window.addEventListener('popstate', () => {
   app.currentRoute = window.location.pathname
